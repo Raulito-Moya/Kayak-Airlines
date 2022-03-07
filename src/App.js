@@ -1,24 +1,54 @@
-import logo from './logo.svg';
+import React  from 'react'
 import './App.css';
+import { useEffect} from 'react'
+import { Route,
+  HashRouter as Router, Routes } from 'react-router-dom'
+
+
+import AirlineGrid from './pages/AirlineGrid';
+import { useStorage } from './context/useStorage';
+import { NavBar } from './components/NavBar';
+
 
 function App() {
+   
+   const {airlines, setAirlines } =  useStorage()
+
+   
+
+  useEffect(() => {
+    if(airlines.length === 0){
+     setAirlines()
+    }
+  })
+  
+  
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   
+   <div >
+      <NavBar />
+
+   <Router>
+     
+
+     <Routes>
+        <Route path="/" element={<AirlineGrid/>}/>
+
+      </Routes>
+
+    
+     </Router>
+   </div> 
+    
+
+  
+
+
+
+   
   );
 }
 
